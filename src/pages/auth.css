@@ -1,0 +1,18 @@
+/* Authentication Page Styles */
+
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: radial-gradient(circle at top, #f0fdf4 0%, #f8fafc 100%);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 460px;
+  padding: 36px 32px;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--slate-200);
+}

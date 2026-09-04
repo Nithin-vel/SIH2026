@@ -1,0 +1,300 @@
+/* Farmogram Home Dashboard Styles */
+
+.home-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* 1. Hero Card */
+.dashboard-hero-card {
+  background: linear-gradient(135deg, #052e16 0%, #14532d 45%, #15803d 100%);
+  border-radius: var(--radius-xl);
+  padding: 32px 36px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  box-shadow: 0 12px 32px -4px rgba(20, 83, 45, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-hero-card::before {
+  content: '';
+  position: absolute;
+  right: -40px;
+  bottom: -40px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(74, 222, 128, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-content {
+  flex: 1;
+  max-width: 720px;
+  z-index: 1;
+}
+
+.hero-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #bbf7d0;
+  letter-spacing: 0.02em;
+  margin-bottom: 12px;
+}
+
+.hero-greeting {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.hero-summary {
+  font-size: 0.96rem;
+  color: #e2e8f0;
+  margin-top: 8px;
+  line-height: 1.6;
+}
+
+.hero-meta-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.hero-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(8px);
+  padding: 6px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.82rem;
+}
+
+.chip-label {
+  color: #86efac;
+}
+
+.chip-value {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.hero-side-status {
+  display: flex;
+  z-index: 1;
+}
+
+@media (max-width: 900px) {
+  .hero-side-status {
+    display: none;
+  }
+}
+
+.status-box {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  text-align: center;
+  min-width: 200px;
+}
+
+.status-num {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  font-family: var(--font-display);
+}
+
+.status-txt {
+  font-size: 0.8rem;
+  color: #bbf7d0;
+  font-weight: 600;
+}
+
+.status-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.mini-crop-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+}
+
+/* 2. Alert Banner */
+.agri-alert-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: linear-gradient(135deg, #fff7ed, #ffedd5);
+  border: 1.5px solid #fed7aa;
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.08);
+}
+
+@media (max-width: 640px) {
+  .agri-alert-banner {
+    flex-direction: column;
+  }
+}
+
+.alert-banner-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-md);
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(234, 88, 12, 0.15);
+}
+
+.alert-banner-text {
+  flex: 1;
+}
+
+.alert-banner-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #9a3412;
+}
+
+.alert-urgency-tag {
+  font-size: 0.68rem;
+  font-weight: 800;
+  background: #ea580c;
+  color: #ffffff;
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.alert-banner-desc {
+  font-size: 0.88rem;
+  color: #7c2d12;
+  margin-top: 4px;
+  line-height: 1.5;
+}
+
+/* 3. Section Titles */
+.section-title-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.section-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--slate-900);
+}
+
+.section-subtitle {
+  font-size: 0.85rem;
+  color: var(--slate-500);
+  margin-top: 2px;
+}
+
+/* Quick Action Cards */
+.action-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--slate-200);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  min-height: 155px;
+}
+
+.action-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary-400);
+  box-shadow: var(--shadow-md);
+}
+
+.action-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.action-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+}
+
+.action-card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--slate-900);
+}
+
+.action-card-desc {
+  font-size: 0.82rem;
+  color: var(--slate-500);
+  margin-top: 3px;
+  line-height: 1.4;
+}
+
+.action-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--primary-700);
+  font-size: 0.84rem;
+  font-weight: 700;
+  margin-top: 14px;
+  border-top: 1px solid var(--slate-100);
+  padding-top: 10px;
+}
