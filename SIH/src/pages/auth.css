@@ -1,0 +1,191 @@
+/* 3D Premium Authentication Page Styles */
+
+.auth-3d-bg {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  /* Rich dark mesh gradient */
+  background: radial-gradient(circle at 10% 20%, rgb(4, 159, 106) 0%, rgb(194, 254, 113) 90.1%);
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Glassmorphism 3D Card */
+.auth-card-3d {
+  width: 100%;
+  max-width: 420px;
+  padding: 40px 32px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  /* 3D Box Shadows */
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.2),
+    inset 0 2px 4px rgba(255, 255, 255, 1),
+    inset 0 -2px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  transform: translateY(0);
+  animation: floatIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 10;
+}
+
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Logo 3D Effect */
+.brand-logo-3d {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 16px auto;
+  border-radius: 24px;
+  background: transparent;
+  padding: 0;
+  box-shadow: 
+    0 12px 24px rgba(4, 159, 106, 0.35),
+    inset 0 4px 6px rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+.brand-logo-3d:hover {
+  transform: translateY(-4px) rotate(3deg);
+}
+
+.brand-logo-3d img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.brand-title-3d {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #0f172a, #16a34a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 6px;
+  text-shadow: 0px 2px 4px rgba(0,0,0,0.05);
+}
+
+.brand-subtitle-3d {
+  font-size: 0.85rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* Inputs with 3D inset shadows */
+.auth-form-3d {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.form-group-3d .form-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 8px;
+}
+
+.form-input-3d {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #0f172a;
+  /* 3D Inset */
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+}
+
+.form-input-3d:focus {
+  outline: none;
+  border-color: #16a34a;
+  background: #ffffff;
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.02),
+    0 0 0 4px rgba(22, 163, 74, 0.15);
+}
+
+/* Custom 3D Select Dropdown */
+.select-3d {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2316a34a%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px top 50%;
+  background-size: 12px auto;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+.select-3d:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #f1f5f9;
+}
+
+/* 3D Submit Button */
+.btn-3d-submit {
+  width: 100%;
+  padding: 14px;
+  margin-top: 12px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(145deg, #16a34a, #15803d);
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  /* 3D Pop Out Effect */
+  box-shadow: 
+    0 8px 16px rgba(22, 163, 74, 0.3),
+    inset 0 2px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-3d-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 12px 20px rgba(22, 163, 74, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.btn-3d-submit:active {
+  transform: translateY(2px);
+  box-shadow: 
+    0 4px 8px rgba(22, 163, 74, 0.3),
+    inset 0 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.btn-3d-submit.loading {
+  opacity: 0.8;
+  cursor: not-allowed;
+  transform: translateY(2px);
+  box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.1);
+}
