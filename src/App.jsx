@@ -19,7 +19,7 @@ import { GovernmentSchemes } from './pages/GovernmentSchemes';
 import { ExpertQA } from './pages/ExpertQA';
 import { NotificationsPage } from './pages/NotificationsPage';
 import { FarmerProfile } from './pages/FarmerProfile';
-import { AdminDashboard } from './pages/AdminDashboard';
+import { Settings } from './pages/Settings';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 
@@ -35,7 +35,7 @@ import './pages/auth.css';
 
 const MainAppContent = () => {
   const { isAuthenticated, isAdmin } = useAuth();
-  const { activePage } = useAppState();
+  const { activePage, isDrawerOpen, toggleDrawer } = useAppState();
   const [authMode, setAuthMode] = useState('login'); // 'login' | 'register'
 
   // If farmer is not logged in, display authentication view
@@ -49,9 +49,6 @@ const MainAppContent = () => {
 
   // Active page renderer
   const renderActivePage = () => {
-    if (isAdmin) {
-      return <AdminDashboard />;
-    }
 
     switch (activePage) {
       case 'home':
@@ -76,8 +73,8 @@ const MainAppContent = () => {
         return <NotificationsPage />;
       case 'profile':
         return <FarmerProfile />;
-      case 'admin':
-        return <AdminDashboard />;
+      case 'settings':
+        return <Settings />;
       default:
         return <Home />;
     }
@@ -85,7 +82,25 @@ const MainAppContent = () => {
 
   return (
     <div className="app-container">
-      {/* Left Navigation Sidebar */}
+      {/* Drawer Overlay */}
+      {isDrawerOpen && (
+        <div 
+          className="drawer-overlay"
+          onClick={toggleDrawer}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            zIndex: 900,
+            backdropFilter: 'blur(2px)'
+          }}
+        />
+      )}
+
+      {/* Left Navigation Sidebar (now acting as mobile drawer) */}
       <Sidebar />
 
       {/* Main Content Area */}
@@ -102,12 +117,16 @@ const MainAppContent = () => {
   );
 };
 
+import { LanguageProvider } from './context/LanguageContext';
+
 export default function App() {
   return (
-    <AuthProvider>
-      <AppStateProvider>
-        <MainAppContent />
-      </AppStateProvider>
-    </AuthProvider>
+    <LanguageProvider>
+      <AuthProvider>
+        <AppStateProvider>
+          <MainAppContent />
+        </AppStateProvider>
+      </AuthProvider>
+    </LanguageProvider>
   );
 }

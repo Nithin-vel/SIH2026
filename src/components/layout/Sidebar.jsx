@@ -14,42 +14,49 @@ import {
   Wheat,
   Video,
   LogOut,
-  ChevronRight
+  ChevronRight,
+  X,
+  Settings
 } from 'lucide-react';
 import { useAppState } from '../../context/AppStateContext';
 import { useAuth } from '../../context/AuthContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 export const Sidebar = () => {
-  const { activePage, setActivePage, unreadNotificationsCount } = useAppState();
+  const { activePage, setActivePage, unreadNotificationsCount, isDrawerOpen, toggleDrawer } = useAppState();
   const { user, isAdmin, toggleRole, logout } = useAuth();
+  const { t } = useLanguage();
 
   const navItems = [
-    { id: 'home', label: 'Farmogram', icon: Wheat, badge: 'Live Feed' },
-    { id: 'crop-advisor', label: 'Crop Advisor', icon: Sprout, highlight: true },
-    { id: 'weather', label: 'Weather', icon: CloudSun },
-    { id: 'disease', label: 'Disease Detection', icon: Bug },
-    { id: 'irrigation', label: 'Irrigation', icon: Droplet },
-    { id: 'market', label: 'Market', icon: TrendingUp },
-    { id: 'profit', label: 'Profit Calculator', icon: Calculator },
-    { id: 'schemes', label: 'Schemes', icon: Landmark },
-    { id: 'expert-qa', label: 'Expert Q&A', icon: HelpCircle },
-    { id: 'notifications', label: 'Notifications', icon: Bell, count: unreadNotificationsCount },
-    { id: 'profile', label: 'Profile', icon: User }
+    { id: 'home', label: t('home'), icon: Sprout, highlight: true },
+    { id: 'weather', label: t('weather'), icon: CloudSun },
+    { id: 'disease', label: t('disease_detection'), icon: Bug },
+    { id: 'irrigation', label: t('irrigation'), icon: Droplet },
+    { id: 'notifications', label: t('notifications'), icon: Bell, count: unreadNotificationsCount },
+    { id: 'profile', label: t('profile'), icon: User }
   ];
 
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${isDrawerOpen ? 'drawer-open' : ''}`}>
       {/* Brand Header */}
       <div className="sidebar-brand">
-        <div className="brand-logo-icon">
-          <Wheat className="logo-icon-svg" />
-        </div>
-        <div className="brand-text-block">
-          <div className="brand-name">
-            Farmogram <span className="brand-ai">AI</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: 1 }}>
+          <div className="brand-logo-icon" style={{ background: 'transparent', boxShadow: 'none' }}>
+            <img src="/logo.png" alt="Farmogram Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
           </div>
-          <div className="brand-tagline">Smart Agri Decision & Community</div>
+          <div className="brand-text-block">
+            <div className="brand-name">
+              Farmogram
+            </div>
+            <div className="brand-tagline">{t('smart_agri_decision')}</div>
+          </div>
         </div>
+        <button 
+          onClick={toggleDrawer}
+          style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--slate-500)', padding: '4px' }}
+        >
+          <X size={24} />
+        </button>
       </div>
 
       {/* Mode Indicator / Switcher for SIH Jury */}
@@ -60,13 +67,13 @@ export const Sidebar = () => {
           className={`role-switch-btn ${isAdmin ? 'role-admin' : 'role-farmer'}`}
           title="Switch view to test Admin Dashboard"
         >
-          {isAdmin ? '🛡️ Admin View' : '🌾 Farmer View'}
+          {isAdmin ? `🛡️ ${t('admin_view')}` : `🌾 ${t('farmer_view')}`}
         </button>
       </div>
 
       {/* Navigation Links */}
       <nav className="sidebar-nav">
-        <div className="nav-group-label">MAIN NAVIGATION</div>
+        <div className="nav-group-label">{t('main_navigation')}</div>
         {navItems.map(item => {
           const Icon = item.icon;
           const isActive = activePage === item.id && !isAdmin;
@@ -77,6 +84,7 @@ export const Sidebar = () => {
               onClick={() => {
                 if (isAdmin) toggleRole();
                 setActivePage(item.id);
+                toggleDrawer();
               }}
               className={`sidebar-nav-item ${isActive ? 'active' : ''} ${item.highlight ? 'highlighted-nav' : ''}`}
             >
@@ -98,20 +106,19 @@ export const Sidebar = () => {
           );
         })}
 
-        {/* Dedicated Admin Dashboard Item */}
-        <div className="nav-group-label" style={{ marginTop: '16px' }}>MANAGEMENT</div>
+        {/* Settings Item */}
+        <div className="nav-group-label" style={{ marginTop: '16px' }}>{t('management')}</div>
         <button
           onClick={() => {
-            if (!isAdmin) toggleRole();
-            setActivePage('admin');
+            setActivePage('settings');
+            toggleDrawer();
           }}
-          className={`sidebar-nav-item ${activePage === 'admin' || isAdmin ? 'active admin-active' : ''}`}
+          className={`sidebar-nav-item ${activePage === 'settings' ? 'active' : ''}`}
         >
           <span className="nav-item-icon-wrapper">
-            <ShieldAlert size={20} />
+            <Settings size={20} />
           </span>
-          <span className="nav-item-label">Admin Dashboard</span>
-          <span className="nav-item-badge admin-badge">SIH Panel</span>
+          <span className="nav-item-label">{t('settings')}</span>
         </button>
       </nav>
 
@@ -119,7 +126,10 @@ export const Sidebar = () => {
       <div className="sidebar-footer">
         <div 
           className="user-profile-card"
-          onClick={() => setActivePage('profile')}
+          onClick={() => {
+            setActivePage('profile');
+            toggleDrawer();
+          }}
         >
           <img 
             src={user.avatar} 

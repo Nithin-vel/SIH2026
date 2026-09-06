@@ -1,17 +1,18 @@
 import React from 'react';
-import { Wheat, Sprout, Bug, TrendingUp, User, Bell } from 'lucide-react';
+import { Wheat, TrendingUp, Calculator, Landmark, HelpCircle } from 'lucide-react';
 import { useAppState } from '../../context/AppStateContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 export const MobileNav = () => {
-  const { activePage, setActivePage, unreadNotificationsCount } = useAppState();
+  const { activePage, setActivePage } = useAppState();
+  const { t } = useLanguage();
 
   const mobileItems = [
-    { id: 'home', label: 'Feed', icon: Wheat },
-    { id: 'crop-advisor', label: 'Advisor', icon: Sprout },
-    { id: 'disease', label: 'Disease', icon: Bug },
-    { id: 'market', label: 'Market', icon: TrendingUp },
-    { id: 'notifications', label: 'Alerts', icon: Bell, count: unreadNotificationsCount },
-    { id: 'profile', label: 'Profile', icon: User }
+    { id: 'home', label: t('home'), icon: Wheat },
+    { id: 'market', label: t('market'), icon: TrendingUp },
+    { id: 'profit', label: t('profit'), icon: Calculator },
+    { id: 'schemes', label: t('schemes'), icon: Landmark },
+    { id: 'expert-qa', label: t('qa'), icon: HelpCircle }
   ];
 
   return (

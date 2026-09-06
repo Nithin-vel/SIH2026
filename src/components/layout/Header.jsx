@@ -1,12 +1,11 @@
 import React from 'react';
-import { CloudSun, Bell, MapPin, Search } from 'lucide-react';
+import { CloudSun, Bell, MapPin, Search, Menu } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useAppState } from '../../context/AppStateContext';
-import { weatherData } from '../../data/mockData';
 
 export const Header = () => {
   const { user, isAdmin } = useAuth();
-  const { setActivePage, unreadNotificationsCount } = useAppState();
+  const { setActivePage, unreadNotificationsCount, toggleDrawer, weather } = useAppState();
 
   const getGreeting = () => {
     const hour = new Date().getHours();
@@ -17,19 +16,21 @@ export const Header = () => {
 
   return (
     <header className="top-header">
-      {/* Greeting & Location */}
-      <div className="header-greeting-block">
-        <div className="greeting-text">
-          {isAdmin ? (
-            <span>🛡️ Farmogram Admin Portal</span>
-          ) : (
-            <span>{getGreeting()}, Farmer {user.name.split(' ')[0]} 🌾</span>
-          )}
-        </div>
-        <div className="greeting-subtext">
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-            <MapPin size={12} /> {user.village}, {user.district} District • Season: Kharif / Samba
-          </span>
+      {/* Hamburger Menu & Location */}
+      <div className="header-greeting-block" style={{ flexDirection: 'row', alignItems: 'center', gap: '12px' }}>
+        <button 
+          onClick={toggleDrawer}
+          className="hamburger-menu-btn"
+          title="Open Menu"
+          style={{ background: 'none', border: 'none', padding: '4px', cursor: 'pointer', color: 'var(--slate-700)' }}
+        >
+          <Menu size={24} />
+        </button>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div className="greeting-text" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <img src="/logo.png" alt="Farmogram Logo" style={{ width: '28px', height: '28px', objectFit: 'contain' }} />
+            <span style={{ fontSize: '1.25rem', fontWeight: 700, color: '#0f172a' }}>Farmogram</span>
+          </div>
         </div>
       </div>
 
@@ -42,8 +43,8 @@ export const Header = () => {
           title="Click to view complete 7-day weather forecast"
         >
           <CloudSun size={18} color="#16a34a" />
-          <span>Coimbatore <strong>{weatherData.currentTemp}°C</strong></span>
-          <span style={{ opacity: 0.75 }}>• {weatherData.condition}</span>
+          <span>{weather.location.split(',')[0]} <strong>{weather.currentTemp}°C</strong></span>
+          <span style={{ opacity: 0.75 }}>• {weather.condition}</span>
         </button>
 
         {/* Notification Bell */}

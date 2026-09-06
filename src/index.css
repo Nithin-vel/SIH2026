@@ -125,15 +125,9 @@ button, input, select, textarea {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  margin-left: 270px;
+  margin-left: 0;
+  padding-bottom: 74px; /* For mobile bottom bar */
   transition: margin-left var(--transition-normal);
-}
-
-@media (max-width: 1024px) {
-  .main-wrapper {
-    margin-left: 0;
-    padding-bottom: 74px; /* For mobile bottom bar */
-  }
 }
 
 .page-content {

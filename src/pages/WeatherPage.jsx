@@ -14,50 +14,14 @@ import {
   Info,
   MapPin
 } from 'lucide-react';
-import { weatherData, locations } from '../data/mockData';
+import { locations } from '../data/mockData';
+import { useAppState } from '../context/AppStateContext';
 
 export const WeatherPage = () => {
-  const [selectedLocation, setSelectedLocation] = useState('Coimbatore');
+  const { weather } = useAppState();
 
-  // Agricultural specific advisories
-  const agroAdvisories = [
-    {
-      id: 'adv_1',
-      icon: '🌧',
-      title: 'Heavy Rain Precaution (Tomorrow)',
-      desc: '35 - 45 mm rainfall forecasted. Halt all foliar sprays of pesticides, insecticides, and top-dress fertilizers. Ensure primary field drainage ditches are unblocked.',
-      severity: 'high',
-      bg: '#fff7ed',
-      color: '#c2410c'
-    },
-    {
-      id: 'adv_2',
-      icon: '💧',
-      title: 'Irrigation Scheduling Advisory',
-      desc: 'Due to sufficient incoming rainfall, skip automated evening drip cycles on Friday and Saturday to conserve ground water and prevent root hypoxia.',
-      severity: 'medium',
-      bg: '#f0f9ff',
-      color: '#0369a1'
-    },
-    {
-      id: 'adv_3',
-      icon: '💨',
-      title: 'Wind Speed & Staking Advisory',
-      desc: 'Moderate north-westerly gusts up to 24 km/h expected Friday morning. Check supporting stakes for tall banana bunches and sugarcane ratoons.',
-      severity: 'low',
-      bg: '#f8fafc',
-      color: '#475569'
-    },
-    {
-      id: 'adv_4',
-      icon: '☀️',
-      title: 'Post-Rain Heat & Disease Window',
-      desc: 'Clear skies on Sunday with 31°C will create a warm humid microclimate conducive to fungal spore germination. Scout tomato and groundnut foliage.',
-      severity: 'medium',
-      bg: '#fefce8',
-      color: '#a16207'
-    }
-  ];
+  // Dynamic advisories are now fetched from the global weather state
+  const agroAdvisories = weather.agroAdvisories || [];
 
   return (
     <div className="weather-page">
@@ -71,34 +35,19 @@ export const WeatherPage = () => {
             Hyperlocal microclimate forecasts and agrometeorological advisories tailored for field operations.
           </p>
         </div>
-
-        {/* Location Switcher */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#fff', padding: '6px 12px', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: 'var(--shadow-sm)' }}>
-          <MapPin size={16} color="#16a34a" />
-          <span style={{ fontSize: '0.85rem', fontWeight: 600, color: '#475569' }}>Mandi Region:</span>
-          <select 
-            value={selectedLocation} 
-            onChange={(e) => setSelectedLocation(e.target.value)}
-            style={{ border: 'none', background: 'transparent', fontWeight: 700, fontSize: '0.9rem', color: '#0f172a', outline: 'none', cursor: 'pointer' }}
-          >
-            {locations.map(loc => (
-              <option key={loc} value={loc}>{loc}, TN</option>
-            ))}
-          </select>
-        </div>
       </div>
 
       {/* Hero Weather Card */}
       <div className="weather-hero-card">
         <div className="weather-hero-main">
           <div>
-            <span className="weather-loc-tag">Current Conditions • {selectedLocation} Observatory</span>
+            <span className="weather-loc-tag">Current Conditions • {weather.location.split(',')[0]} Observatory</span>
             <div className="weather-temp-row">
-              <span className="current-temp-large">{weatherData.currentTemp}°</span>
+              <span className="current-temp-large">{weather.currentTemp}°</span>
               <div className="temp-sub-meta">
                 <span className="temp-celsius">C</span>
-                <span className="feels-like-text">Feels like {weatherData.feelsLike}°C</span>
-                <span className="sky-condition-pill">{weatherData.condition}</span>
+                <span className="feels-like-text">Feels like {weather.feelsLike}°C</span>
+                <span className="sky-condition-pill">{weather.condition}</span>
               </div>
             </div>
           </div>
@@ -114,7 +63,7 @@ export const WeatherPage = () => {
             <Droplets size={20} color="#0ea5e9" />
             <div>
               <span className="metric-label">Relative Humidity</span>
-              <strong className="metric-value">{weatherData.humidity}%</strong>
+              <strong className="metric-value">{weather.humidity}%</strong>
             </div>
           </div>
 
@@ -122,7 +71,7 @@ export const WeatherPage = () => {
             <CloudRain size={20} color="#38bdf8" />
             <div>
               <span className="metric-label">Rainfall Probability</span>
-              <strong className="metric-value">{weatherData.rainfallProbability}%</strong>
+              <strong className="metric-value">{weather.forecast7Day?.[0]?.rainProb ?? weather.rainfallProbability}%</strong>
             </div>
           </div>
 
@@ -130,7 +79,7 @@ export const WeatherPage = () => {
             <Wind size={20} color="#64748b" />
             <div>
               <span className="metric-label">Wind Speed</span>
-              <strong className="metric-value">{weatherData.windSpeed} km/h ({weatherData.windDirection})</strong>
+              <strong className="metric-value">{weather.windSpeed} km/h ({weather.windDirection})</strong>
             </div>
           </div>
 
@@ -138,7 +87,7 @@ export const WeatherPage = () => {
             <Thermometer size={20} color="#eab308" />
             <div>
               <span className="metric-label">Soil Moisture Index</span>
-              <strong className="metric-value">{weatherData.soilMoisture}</strong>
+              <strong className="metric-value">{weather.soilMoisture}</strong>
             </div>
           </div>
         </div>
@@ -196,7 +145,7 @@ export const WeatherPage = () => {
         </div>
 
         <div className="forecast-strip-grid" style={{ marginTop: '14px' }}>
-          {weatherData.forecast7Day.map((day, idx) => (
+          {weather.forecast7Day.map((day, idx) => (
             <div key={idx} className={`farm-card forecast-day-card ${idx === 0 ? 'today-card' : ''}`}>
               <div className="forecast-day-header">
                 <span className="forecast-day-name">{day.day}</span>
